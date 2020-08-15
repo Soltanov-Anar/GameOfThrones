@@ -8,14 +8,7 @@ export class BooksPage extends Component {
     gotService = new gotService();
 
     state = {
-        selectedBook: null,
         error: false,
-    };
-
-    onItemSelected = (id) => {
-        this.setState({
-            selectedBook: id,
-        })
     };
 
     componentDidCatch() {
@@ -27,6 +20,7 @@ export class BooksPage extends Component {
     render () {
         const {history} = this.props;
         const {error} = this.state;
+        const {getAllBooks} = this.gotService;
         if(error) return <ErrorMessage />;
 
         return (
@@ -34,7 +28,7 @@ export class BooksPage extends Component {
                 onItemSelected={(itemId) => {
                     history.push(itemId)
                 }}
-                getData={this.gotService.getAllBooks}
+                getData={getAllBooks}
                 renderItem={({name}) => name}
             />
         )

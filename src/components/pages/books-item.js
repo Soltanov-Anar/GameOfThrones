@@ -6,10 +6,12 @@ export default class BooksItem extends Component {
     gotService = new gotService();
     
     render () {
+        const {bookId} = this.props;
+        const {getBook} = this.gotService;
         return (
             <ItemDetails
-                itemId={this.props.bookId}
-                getData={this.gotService.getBook}
+                itemId={bookId}
+                getData={getBook}
             >
                 <Field 
                     field='numberOfPages'

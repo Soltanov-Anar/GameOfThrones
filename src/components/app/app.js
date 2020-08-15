@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {Col, Row, Container} from 'reactstrap';
 import Header from '../header';
 import RandomChar from '../random-char';
@@ -16,7 +16,6 @@ export default class App extends Component {
     state = {
         showRandomChar: true,
         error: false,
-        selectedHouse: 20
     };
 
     componentDidCatch = () => {
@@ -61,7 +60,7 @@ export default class App extends Component {
                         </Row>
                         <Route path='/' component={() => <h1>Welcome to GOT DB</h1>} exact/>
                         <Route path='/characters' component={CharacterPage} />
-                        <Route path='/books' component={BooksPage} />
+                        <Route path='/books' component={BooksPage} exact/>
                         <Route path='/books/:id' render={({match}) => {
                             const {id} = match.params;
                         return <BooksItem bookId={id} /> }} />

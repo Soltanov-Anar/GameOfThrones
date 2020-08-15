@@ -38,7 +38,7 @@ export default class RandomChar extends Component {
             loading: false,
         })
     }
-
+    
     updateChar = () => {
         const id = Math.floor(Math.random()*140 + 25); //от 25 до 140
     //    const id = 1222222;
