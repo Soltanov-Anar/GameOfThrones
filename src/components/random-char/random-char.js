@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import './random-char.css';
 import gotService from '../../service/gotService';
 import Spinner from '../spinner';
-import ErrorMessage from '../error/error-message';
+import ErrorMessage from '..//error-message';
 
 export default class RandomChar extends Component {
 
@@ -10,12 +10,13 @@ export default class RandomChar extends Component {
 
     state = {
         char: {},
-        loading: true
+        loading: true,
+        error: false,
     }
 
     componentDidMount() {
         this.updateChar();
-        this.timerId = setInterval(this.updateChar, 1500);
+        this.timerId = setInterval(this.updateChar, 10000);
     }
 
     componentWillUnmount() {
