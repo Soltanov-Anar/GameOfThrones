@@ -29,7 +29,7 @@ export default class ItemDetalis extends Component {
 
     componentDidUpdate(prevProps) {
         if(this.props.itemId !== prevProps.itemId) {
-            this.updateChar();
+            this.updateItem();
         }
     }
 
