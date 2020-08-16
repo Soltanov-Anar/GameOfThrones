@@ -1,29 +1,31 @@
-import React, {Component} from 'react';
+import React, {useState, useEffect} from 'react';
 import './item-list.css';
 import Spinner from '../spinner';
-import PropTypes from 'prop-types';
-import gotService from '../../service/gotService';
+//import PropTypes from 'prop-types';
+//import gotService from '../../service/gotService';
 
-class ItemList extends Component {
-    static defaultProps = {
-        onItemSelected: () => {}
-    }
+function ItemList({getData, onItemSelected, renderItem}) {
     
-    static propTypes = {
-        onItemSelected: PropTypes.func 
-    }
+    const [itemList, updateList] = useState([]);
 
-    renderItems(arr) {
+    useEffect(() => {
+             getData()
+            .then( (data) => {
+                updateList(data)
+            })
+    }, [])
+
+    function renderItems(arr) {
         return arr.map((item) => {
             const {id} = item;
 
-            const label = this.props.renderItem(item);
+            const label = renderItem(item);
 
             return (
                 <li
                     key={id}
                     className="list-group-item"
-                    onClick={() => this.props.onItemSelected(id)}
+                    onClick={() => onItemSelected(id)}
                     >
                     {label}
                 </li>
@@ -31,37 +33,32 @@ class ItemList extends Component {
             
         })
     }
-    
-    render() {   
-        const {data} = this.props;     
-        const items = this.renderItems(data);
-
-        return (
-            <ul className="item-list list-group">
-                {items}
-            </ul>
-        );
+       
+    if(!itemList) {
+        return <Spinner />
     }
+
+    const items = renderItems(itemList);
+    
+    return (
+        <ul className="item-list list-group">
+            {items}
+        </ul>
+    );
 }
 
-ItemList.defaultProps = {
+export default ItemList;
+
+/* ItemList.defaultProps = {
     onItemSelected: () => {}
-}
+} */
 
-const withData = (View, getData) => { 
+/* const withData = (View, getData) => { 
     return class extends Component {
         state = {
             data: null,
         } 
 
-        componentDidMount() { 
-            getData()
-                .then( (data) => {
-                    this.setState({
-                        data
-                })
-            })
-        }
 
         render() {
             const {data} = this.state;
@@ -74,4 +71,4 @@ const withData = (View, getData) => {
     };
 }
 const {getAllCharacters} = new gotService();
-export default withData(ItemList, getAllCharacters);
+export default withData(ItemList, getAllCharacters); */
